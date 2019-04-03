@@ -17,7 +17,46 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 25px 0px;
 }
+
+.Quote-Container {
+  background-color: #f8f8f8;
+  border: 1px solid #c8c8c8;
+  border-radius: 5px;
+  width: 90%;
+  text-align: center;
+  padding: 5px;
+  position: relative;
+  margin: 25px;
+  color: black;
+}
+
+.Quote-Container .arrow {
+  border-style: solid;
+  position: absolute;
+  left: 90%;
+}
+
+.Full-Container {
+  position: relative;
+}
+
+.Author-Container {
+  width: 90%;
+  right: 0px;
+  text-align: right;
+  padding: 5px;
+  position: relative;
+  margin: -22px 25px 0px;
+}
+
+.bottom {
+  border-color: #f8f8f8 transparent transparent transparent;
+  border-width: 8px 8px 0px 8px;
+  bottom: -8px;
+}
+
 
 .App-link {
   color: #61dafb;
