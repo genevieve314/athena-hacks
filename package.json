@@ -8,6 +8,8 @@
   "author": "Genevieve and Duane",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-scripts": "2.1.8"
@@ -25,10 +27,14 @@
     "url": "https://github.com/genevieve314/athena-hacks/issues"
   },
   "homepage": "https://github.com/genevieve314/athena-hacks#readme",
+  "proxy": "http://localhost:8080/",
   "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
 }
