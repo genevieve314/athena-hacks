@@ -42,10 +42,11 @@ class App extends Component {
 
   // POSTs data to our endpoint
   postNewQuote = async (quotePayload) => {
-    console.info('HNY -- POST attemp 1');
+    console.info('HNY -- POST attemp 1 - ', quotePayload);
     const response = await fetch('/addQuotes', {
       method: 'post',
-      body: JSON.stringify(quotePayload)
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(quotePayload),
     });
 
     console.info('HNY -- response = ', response);
@@ -70,18 +71,12 @@ class App extends Component {
     .then(res => {
       console.info('HNY -- Post Response');
       console.info('HNY -- res = ', res);
-      // UPDATE STATE
+      this.setState({ quotes: res.quotes });
     });
-
-
-    // quotes.push(this.quoteInput.value);
-    // this.setState({ quotes });
   }
 
 
   render() {
-
-
     const { quotes } = this.state;
 
     const quotesList = quotes.map(({quote, author}, i) => {

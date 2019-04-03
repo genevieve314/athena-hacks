@@ -32,6 +32,7 @@ app.get('/quotes', function (req, res) {
 
 app.post('/addQuotes', function (req, res) {
   console.info('HNY -- req.body = ', req.body);
+  quoteData.push(req.body);
 
   res.send({
     success: true,
