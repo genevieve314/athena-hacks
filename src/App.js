@@ -18,18 +18,16 @@ class App extends Component {
     // Call our fetch function below once the component mounts
     this.getQuotes()
       .then(res => {
-        console.info('HNY -- res = ', res);
+        // Update the State to refresh the UI
         this.setState({ quotes: res.quotes });
       })
       .catch(err => {
-        console.info('HNY -- its an error');
-        console.log(err)
+        console.error(err)
       });
   }
 
-  // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
+  // Fetches our GET route from the Express server
   getQuotes = async () => {
-    console.info('HNY -- Hiii!');
     const response = await fetch('/quotes');
     const body = await response.json();
 
@@ -42,14 +40,12 @@ class App extends Component {
 
   // POSTs data to our endpoint
   postNewQuote = async (quotePayload) => {
-    console.info('HNY -- POST attemp 1 - ', quotePayload);
     const response = await fetch('/addQuotes', {
       method: 'post',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(quotePayload),
     });
 
-    console.info('HNY -- response = ', response);
     const body = await response.json();
 
 
@@ -69,8 +65,6 @@ class App extends Component {
 
     this.postNewQuote(quotePayload)
     .then(res => {
-      console.info('HNY -- Post Response');
-      console.info('HNY -- res = ', res);
       this.setState({ quotes: res.quotes });
     });
   }
@@ -81,10 +75,16 @@ class App extends Component {
 
     const quotesList = quotes.map(({quote, author}, i) => {
         return (
-          <div key={ `quote-${i}` }>
-            <p>
-              {quote} -- <strong>{author}</strong>
-            </p>
+          <div class="Full-Container">
+            <div key={ `quote-${(quote || '').replace(' ', '-')}` } class="Quote-Container">
+              <p>
+                {quote}
+              </p>
+              <div class="arrow bottom right"></div>
+            </div>
+            <div class="Author-Container">
+              <strong>{author}</strong>
+            </div>
           </div>
         );
       });
@@ -94,6 +94,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
+          <h1> Honey Hacks Athena Demo </h1>
           <input
             id="quoteAdder"
             value="Add A Quote"
@@ -108,9 +109,6 @@ class App extends Component {
           </div>
 
           {quotesList}
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
           <a
             className="App-link"
             href="https://reactjs.org"

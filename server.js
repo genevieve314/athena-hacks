@@ -8,6 +8,8 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+
+// Simple storage server side of the data
 const quoteData = [
   {
     author: 'JK Rowling',
@@ -23,6 +25,7 @@ const quoteData = [
   },
 ]
 
+// Get the Quote Data
 app.get('/quotes', function (req, res) {
   res.send({
     success: true,
@@ -30,8 +33,9 @@ app.get('/quotes', function (req, res) {
   });
 });
 
+
+// Add New Quotes
 app.post('/addQuotes', function (req, res) {
-  console.info('HNY -- req.body = ', req.body);
   quoteData.push(req.body);
 
   res.send({
