@@ -1,0 +1,63 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: athena-hacks
+  name: athena-hacks
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: athena-hacks
+      name: athena-hacks
+    spec:
+      containers:
+        - name: helloworld
+          image: gcr.io/athena-hacks/helloworld:0.0.1
+          imagePullPolicy: Always
+          command:
+            - node
+            - index.js
+          resources:
+            limits:
+              cpu: 2
+              memory: 5000Mi
+            requests:
+              cpu: 0.5
+              memory: 700Mi
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /hz/alive
+              port: 8080
+            periodSeconds: 10
+            timeoutSeconds: 2
+            initialDelaySeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /hz/ready
+              port: 8080
+            periodSeconds: 10
+            timeoutSeconds: 2
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: athena-hacks
+  labels:
+    run: athena-hacks
+spec:
+  ports:
+    - nodePort: 30000
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    run: athena-hacks
+  sessionAffinity: ClientIP
+  type: NodePort
